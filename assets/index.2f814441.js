@@ -1182,7 +1182,7 @@ object-assign
   justify-content: center;
   &.is-selected {
     background: ${({theme:i})=>i.toggleBorder};
-    color: ${({theme:i})=>i.text};
+    color: white;
     width: 80px;
     font-weight: 600;
     height: 30px;
