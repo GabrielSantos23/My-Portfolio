@@ -17,7 +17,7 @@ export const Stab = styled(Tab)`
   justify-content: center;
   &.is-selected {
     background: ${({ theme }) => theme.toggleBorder};
-    color: ${({ theme }) => theme.text};
+    color: white;
     width: 80px;
     font-weight: 600;
     height: 30px;
