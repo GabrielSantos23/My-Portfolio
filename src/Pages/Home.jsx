@@ -334,7 +334,7 @@ export default function Home() {
           </h1>
           <div>
             <p>
-              FrontEnd Developer & Web Designer who loves everything 'bout the
+              FullStack Developer & Web Designer who loves everything 'bout the
               web, practicing React, and everything bout the internet in search
               of flow.
             </p>

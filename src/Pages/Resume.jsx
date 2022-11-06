@@ -5,7 +5,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 import Curriculo from '../../public/Curriculo.pdf';
 import { Helmet } from 'react-helmet';
 
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import Footer from '../../components/Footer';
 
@@ -67,8 +67,9 @@ const Content = styled.div`
     max-width: 100%;
   }
 `;
-const LinkA = styled(Link)`
-  margin-top: 40px;
+const LinkA = styled(NavLink)`
+  z-index: 10;
+  margin-top: -180px;
   margin-bottom: 40px;
   color: ${({ theme }) => theme.text};
   text-decoration: none;
@@ -112,7 +113,7 @@ export default function Resume() {
         <div>
           <h1>Resume.</h1>
           <p style={{ marginBottom: '40px' }}>
-            Reach out to me via my <a href={'/contact'}>contact page</a> .{' '}
+            Reach out to me via my <LinkA to='/contact'>contact page</LinkA> .{' '}
             <span>
               <a
                 href='https://drive.google.com/file/d/1yKkPW4TUfzT_F2W1lRoFxSnaJmNyS7cJ/view?usp=sharing'
@@ -134,7 +135,7 @@ export default function Resume() {
         <Document file={Curriculo}>
           <Pages pageNumber={1} height={800} />
         </Document>
-        <LinkA to={'/contact'}>Are you convinced to contact me now ?</LinkA>
+        <LinkA to='contact'>Are you convinced to contact me now ?</LinkA>
         <Footer />
       </Content>
     </All>

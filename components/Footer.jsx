@@ -50,7 +50,7 @@ export default function Footer() {
         <AiOutlineInstagram />
       </a>
       <a
-        href='https://github.com/gabs111'
+        href='https://github.com/GabrielSantos23'
         target='_blank'
         rel='noopener noreferrer'
       >

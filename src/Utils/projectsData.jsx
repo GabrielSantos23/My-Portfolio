@@ -1,5 +1,16 @@
 const PROJECTS_DATA = [
   {
+    title: 'ShareMe',
+    description: 'a social media site',
+    about:
+      'a social network and full stack project that users can post photos, comment and save items they liked',
+    link: 'https://sharemegss.netlify.app/',
+    imageUrl: 'https://i.ibb.co/QXgS5j8/Untitled.png',
+    github: 'https://github.com/GabrielSantos23/ShareMe',
+    type: ['project', 'open-source', 'tools', 'Design', 'others'],
+    technologies: ['React ', 'Tailwind', 'Sanity'],
+  },
+  {
     title: 'Movies & Series Website',
     description:
       'a site that brings together all the movies and series and actors of all times',
