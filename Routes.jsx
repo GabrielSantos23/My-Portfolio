@@ -1,16 +1,20 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+
 import Home from './src/Pages/Home';
 import Projects from './src/Pages/Projects';
 import Resume from './src/Pages/Resume';
 import Contact from './src/Pages/Contact';
 import About from './src/Pages/About';
+import Splash from './src/Pages/Splash';
+
 import { ThemeProvider } from 'styled-components';
 import GlobalTheme from './components/Globals';
 import { lightTheme, darkTheme } from './components/theme';
 import Sidebar from './components/Sidebar';
-
+import './index.css';
 import SidebarMobile from './components/SidebarMobile';
+import ProjectSidebar from './src/Pages/ProjectSidebar';
 
 export default function Routes1() {
   const [menuIsVinsible, setMenuVisible] = useState(false);
@@ -66,6 +70,7 @@ export default function Routes1() {
               <Route path='/resume' element={<Resume />} />
               <Route path='/contact' element={<Contact />} />
               <Route path='/about' element={<About />} />
+              <Route path='/splahs' element={<Splash />} />
             </Route>
           </Routes>
         </Router>

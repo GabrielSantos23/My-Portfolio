@@ -39,6 +39,7 @@ export const STabPanel = styled(TabPanel)`
   width: 50vw;
   @media (max-width: 1268px) {
     width: 100vw;
+    display: flex;
     justify-content: center;
   }
 `;

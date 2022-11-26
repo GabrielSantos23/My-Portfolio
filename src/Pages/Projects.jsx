@@ -3,10 +3,12 @@ import { motion } from 'framer-motion';
 import { ProjectsContext } from '../Utils/context';
 import { Stab, STabList, STabPanel, Stabs } from '../../components/TabsStyle';
 import styled from 'styled-components';
-import Modal from 'react-modal';
 import Footer from '../../components/Footer';
 import { Helmet } from 'react-helmet';
-Modal.setAppElement('#root');
+import Designs from './Designs';
+import { client, urlFor } from '../client';
+import { Query } from '../Utils/data';
+import MansoryLayout from '../Utils/MansoryLayout';
 
 const ProjectsDiv = styled(motion.div)`
   display: flex;
@@ -16,65 +18,7 @@ const ProjectsDiv = styled(motion.div)`
     width: 100vw;
   } ;
 `;
-const DIV = styled.div`
-  position: absolute;
 
-  width: 100%;
-`;
-
-const ProjectImages = styled.div`
-  display: flex;
-  min-height: 200px;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  position: relative;
-
-  p {
-    display: none;
-    position: absolute;
-    bottom: 38px;
-    left: 16px;
-  }
-  h3 {
-    display: none;
-    position: absolute;
-    bottom: 98px;
-    margin-bottom: 15px;
-    left: 16px;
-  }
-  span {
-    display: none;
-    bottom: -70px;
-
-    background-color: ${({ theme }) => theme.textDescription};
-    font-size: 12px;
-  }
-
-  :hover p {
-    display: block;
-    color: white;
-  }
-  :hover h3 {
-    display: block;
-    color: white;
-  }
-  :hover img {
-    opacity: 0.5;
-    transition: all 0.3s;
-  }
-  :hover span {
-    display: flex;
-    border-radius: 30px;
-    justify-content: center;
-    align-items: center;
-
-    color: white;
-  }
-`;
-const ContentImage = styled.div`
-  display: flex;
-`;
 const All = styled.div`
   width: 100%;
   max-width: 50%;
@@ -85,7 +29,8 @@ const All = styled.div`
   h1 {
     margin-top: 70px;
     width: 100%;
-    font-size: 50px;
+    font-weight: bolder;
+    font-size: 40px;
   }
 `;
 const Background = styled(motion.div)`
@@ -103,50 +48,20 @@ const Background = styled(motion.div)`
   background-position: right bottom;
   background-attachment: fixed;
 `;
-const Content = styled.div`
-  column-count: 2;
-  width: 100vw;
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  display: inline-block;
-  justify-content: center;
-  img {
-    width: 500px;
-    border-radius: 15px;
-    margin-bottom: 20px;
-  }
-  @media (max-width: 1268px) {
-    column-count: 1;
-    display: flex;
-    flex-direction: column;
 
-    img {
-      width: 500px;
-      border-radius: 15px;
-      margin-bottom: 20px;
-    }
-  }
-  @media (max-width: 668px) {
-    img {
-      width: 300px;
-      border-radius: 15px;
-      margin-bottom: 20px;
-    }
-  }
-`;
 export default function Projects() {
   const projectData = useContext(ProjectsContext);
   const [show, setShow] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [loading, setloading] = useState(true);
+  const [pins, setPins] = useState();
 
-  function openModal() {
-    setIsOpen(!false);
-  }
-  function closeModal() {
-    setIsOpen(!true);
-  }
-
+  useEffect(() => {
+    client.fetch(Query).then((data) => {
+      setPins(data);
+      setloading(false);
+    });
+  }, []);
   return (
     <div
       style={{
@@ -154,6 +69,7 @@ export default function Projects() {
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: '40px',
+        overflowX: 'hidden',
       }}
     >
       <Helmet>
@@ -177,10 +93,10 @@ export default function Projects() {
         >
           <Stabs>
             <STabList>
-              <Stab style={{ zIndex: '2' }} selectedClassName='is-selected'>
-                All
-              </Stab>
-              <Stab style={{ zIndex: '2' }} selectedClassName='is-selected'>
+              <Stab
+                style={{ zIndex: '2', fontWeight: 'bold' }}
+                selectedClassName='is-selected'
+              >
                 Projects
               </Stab>
               <Stab style={{ zIndex: '2' }} selectedClassName='is-selected'>
@@ -188,152 +104,14 @@ export default function Projects() {
               </Stab>
             </STabList>
             <STabPanel style={{ marginTop: '100px' }}>
-              <Content>
-                {projectData.map(
-                  (item, index) =>
-                    item.type.includes('others') && (
-                      <>
-                        <ProjectImages
-                          key={index}
-                          className='ProjectImages'
-                          role='gridcell'
-                          id='cardHover'
-                          aria-label={`${item.title} ${item.description}`}
-                          onClick={() => setShow(true)}
-                          onKeyPress={(e) => {
-                            if (e.key === 'Enter') return setShow(true);
-                          }}
-                          tabIndex='0'
-                        >
-                          <a
-                            href={item.link}
-                            target='_blank'
-                            rel='noopener noreferrer'
-                          >
-                            <img src={item.imageUrl} alt='' />
-                          </a>
-                          <ContentImage>
-                            <h3
-                              style={{
-                                position: 'absolute',
-                                maxWidth: '400px',
-                              }}
-                            >
-                              {item.title}
-                            </h3>
-                            <p
-                              style={{
-                                position: 'absolute',
-                                maxWidth: '400px',
-                              }}
-                            >
-                              {item.description}
-                            </p>
-                          </ContentImage>
-                        </ProjectImages>
-                      </>
-                    )
-                )}
-              </Content>
+              <MansoryLayout
+                pins={pins}
+                setloading={setloading}
+                loading={loading}
+              />
             </STabPanel>
             <STabPanel>
-              <Content>
-                {projectData.map(
-                  (item, index) =>
-                    item.type.includes('project') && (
-                      <>
-                        <ProjectImages
-                          key={index}
-                          className='ProjectImages'
-                          role='gridcell'
-                          id='cardHover'
-                          aria-label={`${item.title} ${item.description}`}
-                          onClick={() => setShow(true)}
-                          onKeyPress={(e) => {
-                            if (e.key === 'Enter') return setShow(true);
-                          }}
-                          tabIndex='0'
-                        >
-                          <a
-                            href={item.link}
-                            target='_blank'
-                            rel='noopener noreferrer'
-                          >
-                            <img src={item.imageUrl} alt='' />
-                          </a>
-                          <ContentImage>
-                            <h3
-                              style={{
-                                position: 'absolute',
-                                maxWidth: '400px',
-                              }}
-                            >
-                              {item.title}
-                            </h3>
-                            <p
-                              style={{
-                                position: 'absolute',
-                                maxWidth: '400px',
-                              }}
-                            >
-                              {item.description}
-                            </p>
-                          </ContentImage>
-                        </ProjectImages>
-                      </>
-                    )
-                )}
-              </Content>
-            </STabPanel>
-            <STabPanel>
-              <Content>
-                {projectData.map(
-                  (item, index) =>
-                    item.type.includes('design') && (
-                      <>
-                        <ProjectImages
-                          key={index}
-                          className='ProjectImages'
-                          role='gridcell'
-                          id='cardHover'
-                          aria-label={`${item.title} ${item.description}`}
-                          onClick={() => setShow(true)}
-                          onKeyPress={(e) => {
-                            if (e.key === 'Enter') return setShow(true);
-                          }}
-                          tabIndex='0'
-                        >
-                          <a
-                            href={item.link}
-                            target='_blank'
-                            rel='noopener noreferrer'
-                          >
-                            <img src={item.imageUrl} alt='' />
-                          </a>
-
-                          <ContentImage>
-                            <h3
-                              style={{
-                                position: 'absolute',
-                                maxWidth: '400px',
-                              }}
-                            >
-                              {item.title}
-                            </h3>
-                            <p
-                              style={{
-                                position: 'absolute',
-                                maxWidth: '400px',
-                              }}
-                            >
-                              {item.description}
-                            </p>
-                          </ContentImage>
-                        </ProjectImages>
-                      </>
-                    )
-                )}
-              </Content>
+              <Designs />
             </STabPanel>
           </Stabs>
         </ProjectsDiv>

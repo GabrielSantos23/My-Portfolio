@@ -178,7 +178,7 @@ export default function Sidebar({
       <Fragment>
         <div
           style={{
-            width: '100vw',
+            width: '100%',
             zIndex: 100,
             display: 'flex',
             flexDirection: 'column',

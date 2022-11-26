@@ -25,8 +25,7 @@ const PROJECTS_DATA = [
   {
     title: 'Login Screen',
     about: 'A simple login screen with beatiful animations',
-    description:
-      'Navigation tool that significantly increases efficiency by reducing the number of clicks it takes you to navigate the web.',
+    description: 'A simple login screen with beatiful animations',
     link: 'https://GabrielSantos23.github.io/Login-Screen/',
     github: 'https://github.com/GabrielSantos23/Login-Screen',
     imageUrl: 'https://i.ibb.co/d7TD1Lb/Untitled.png',

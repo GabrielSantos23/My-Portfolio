@@ -15,7 +15,7 @@ import Resume from './Pages/Resume';
 import Contact from './Pages/Contact';
 import About from './Pages/About';
 import Routes1 from '../Routes';
-
+import '../index.css';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Routes1 />
